@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import axios from '../../axios';
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
@@ -38,13 +38,16 @@ class Blog extends Component {
     }
     
     render () {
-        const posts = this.state.posts.map( post => {
-            return <Post 
-                        key={post.id} 
-                        title={post.title} 
-                        author={post.author}
-                        clicked={() => this.postSelectedHandler(post.id)} />; // We get this from the state that we updated with axios.
-        })
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong :(</p>;
+        if(!this.state.error) {
+            posts = this.state.posts.map( post => {
+                return <Post 
+                            key={post.id} 
+                            title={post.title} 
+                            author={post.author}
+                            clicked={() => this.postSelectedHandler(post.id)} />; // We get this from the state that we updated with axios.
+            })
+        } 
 
         return (
             <div>
